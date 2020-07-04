@@ -1,0 +1,7 @@
+[color]
+	ui = true
+[user]
+	name = Amy Boyd
+	email = amy@amyboyd.co.uk
+[core]
+	excludesfile = /Users/amy/.gitignore_global

@@ -1,0 +1,136 @@
+PS1='%F{yellow}[%n@%/]%f '
+
+export EDITOR=/usr/bin/nano
+
+# Node.
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Android.
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Java.
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+export JAVA_HOME_8='/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home'
+export JAVA_HOME_11='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
+export JAVA_HOME_12='/Library/Java/JavaVirtualMachines/adoptopenjdk-12.jdk/Contents/Home'
+export JAVA_HOME_13='/Library/Java/JavaVirtualMachines/adoptopenjdk-13-openj9.jdk/Contents/Home'
+export JAVA_HOME_14='/Library/Java/JavaVirtualMachines/openjdk-14.jdk/Contents/Home'
+export JAVA_HOME="$JAVA_HOME_14"
+alias usejdk8='export JAVA_HOME="$JAVA_HOME_8"; jenv shell 1.8; jenv global 1.8;'
+alias usejdk11='export JAVA_HOME="$JAVA_HOME_11"; jenv shell 11; jenv global 11;'
+alias usejdk12='export JAVA_HOME="$JAVA_HOME_12"; jenv shell 12; jenv global 12;'
+alias usejdk13='export JAVA_HOME="$JAVA_HOME_13"; jenv shell 13; jenv global 13;'
+alias usejdk14='export JAVA_HOME="$JAVA_HOME_14"; jenv shell 14; jenv global 14;'
+
+# Usage: psg [PROCESS STRING]
+psg() {
+    ps ax | grep -i "$1" | grep -v grep
+}
+
+# Usage: add_sub_ext 'video.mp4' 'min' => 'video.min.mp4'
+add_sub_ext() {
+    original="$1"
+    to_add="$2"
+
+    renamed=$( awk -v original="$original" -v to_add="$to_add" '{
+        n = split(original, a, ".")
+        for (i = 1; i <= n - 1; i++) {
+            printf a[i]"."
+        }
+        printf to_add"."a[n]
+    }' <<< '' )
+
+    echo "$renamed"
+}
+
+# Usage: minvideo [FILENAME]
+minvideo() {
+    filename=$1
+    minified_filename=$( add_sub_ext "$filename" min )
+    ffmpeg -i "$filename" -loglevel info -hide_banner "$minified_filename"
+    echo 'Finished'
+
+    input_size=$( du -h "$filename" | awk '{ print $1 }' )
+    output_size=$( du -h "$minified_filename" | awk '{ print $1 }' )
+    echo "Input: $filename ($input_size)"
+    echo "Output: $minified_filename ($output_size)"
+}
+
+# Docker.
+alias dockerrmallc='docker rm $(docker ps -a -q)'
+alias dockerrmallcforce='docker rm $(docker ps -a -q) --force'
+alias dockerrmalli='docker rmi $(docker images -q)'
+dockerssh() {
+    docker exec -it "$1" /bin/bash
+}
+
+# React Native.
+alias rrna='npx react-native run-android'
+alias rrni='npx react-native run-ios'
+alias clearwatchman='watchman watch-del-all; node_modules/.bin/react-native start -- --reset-cache'
+alias logcatchrome='adb logcat -T 0 chromium:V *:S'
+
+# Git.
+git config --global color.ui true
+alias gs="git status"
+alias gsh="git show"
+alias gc="git commit"
+alias gch="git checkout"
+alias gl="git log --no-merges --pretty=format:'%Cred%h%Creset  %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d%Creset'"
+alias gl2="git log --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+alias gl3="git log --no-merges --pretty=format:'%Cred%h%Creset  %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+alias gd="git diff"
+alias gdc="git diff --cached"
+alias gb="git branch"
+alias gbo="git for-each-ref --sort='-committerdate' --format='%(committerdate)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+alias gwc="git whatchanged -p --follow"
+alias gcp="git cherry-pick"
+alias gcpc="git cherry-pick --continue"
+alias gaap="git add . -p"
+alias gpum='git pull upstream master'
+alias gputb='git pull upstream `thisbranch`'
+alias gpa='git push amy `thisbranch`'
+alias gpushtb='git push origin `thisbranch`'
+alias gsubup="git submodule update --init --recursive"
+alias gtagtoday="git tag release-$( date +'%Y%m%d' )"
+alias thisbranch="git branch | awk '/^\* (.+)/ { print $1 }' | sed 's/\* //'"
+alias copybranch='echo -n `thisbranch` | pbcopy'
+alias thiscommit="git rev-parse HEAD"
+alias copycommit='echo -n `thiscommit` | pbcopy'
+
+# PHP.
+alias composer="php composer.phar"
+alias getcomposer="curl -sS https://getcomposer.org/installer | php"
+alias resolvecomposerlock='rm composer.lock && composer install && git add composer.lock && git status'
+
+# Misc.
+alias ll="ls -opgh"
+alias flushdns="sudo kill -HUP $(pgrep dnsmasq)"
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias youtube-dl-best="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4"
+alias youtube-dl-audio='youtube-dl -f bestaudio --extract-audio --audio-format mp3'
+alias pubkeyperm='chmod 0600 $1'
+alias unfuckrotation='mkdir fixed; for f in *.jpg; do convert "$f" -auto-orient "fixed/$f"; done'
+alias digall="dig ANY"
+
+# Chrome.
+alias chrome_ignore_certs='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --ignore-certificate-errors'
+chrome_version() {
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version | tr -d 'Google Chrome'
+}
+
+# Selenium.
+alias startselenium='npx webdriver-manager start'
+alias updateselenium='npx webdriver-manager update --versions.chrome=$(chrome_version)'
+
+update_weight() {
+    cd '/Users/amy/Google Drive AB/Health/Imports'
+    php create-csv.php
+}
