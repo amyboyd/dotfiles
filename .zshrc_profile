@@ -63,6 +63,21 @@ minvideo() {
     echo "Output: $minified_filename ($output_size)"
 }
 
+# Usage: get_ext [FILENAME]
+# Example: get_ext my-file.txt => txt
+# Example: get_ext my-file.something.txt => txt
+# Example: get_ext .gitignore => gitignore
+# Example: get_ext noext => ''
+# Example: get_ext '' => ''
+get_ext() {
+    filename="$1"
+    if [[ "$filename" = *.* ]]; then
+        echo "${filename##*.}"
+    else
+        echo ''
+    fi
+}
+
 # Docker.
 alias dockerrmallc='docker rm $(docker ps -a -q)'
 alias dockerrmallcforce='docker rm $(docker ps -a -q) --force'
