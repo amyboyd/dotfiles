@@ -89,6 +89,8 @@ dockerssh() {
 # React Native.
 alias rrna='npx react-native run-android'
 alias rrni='npx react-native run-ios'
+alias lrna='npx react-native log-android'
+alias lrni='npx react-native log-ios'
 alias clearwatchman='watchman watch-del-all; node_modules/.bin/react-native start -- --reset-cache'
 alias logcatchrome='adb logcat -T 0 chromium:V *:S'
 
