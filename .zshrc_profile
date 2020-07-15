@@ -96,6 +96,7 @@ alias logcatchrome='adb logcat -T 0 chromium:V *:S'
 
 # Git.
 git config --global color.ui true
+git config --global pull.ff only
 alias gs="git status"
 alias gsh="git show"
 alias gc="git commit"
