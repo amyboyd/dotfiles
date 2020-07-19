@@ -157,3 +157,6 @@ update_weight() {
     cd '/Users/amy/Google Drive AB/Health/Imports'
     php create-csv.php
 }
+
+# zsh annoyingly asks for confirmation when you `rm`. Disable that annoyance.
+setopt rm_star_silent
