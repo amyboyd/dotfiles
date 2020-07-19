@@ -162,3 +162,10 @@ update_weight() {
 
 # zsh annoyingly asks for confirmation when you `rm`. Disable that annoyance.
 setopt rm_star_silent
+
+enable_echo_colors() {
+    autoload colors;
+    colors;
+    # You can now use: echo "$fg_bold[red]"'hello world'"$fg[default]"
+    # or: echo "$fg[yellow]"'hello world'"$fg[default]"
+}
