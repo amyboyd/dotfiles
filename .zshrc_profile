@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 PS1='%F{yellow}[%n@%/]%f '
 
 export EDITOR=/usr/bin/nano
