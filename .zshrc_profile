@@ -13,6 +13,11 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+alias androidemulator='emulator'
+alias androidemulators='emulator -list-avds'
+alias androidkillemulators='adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done'
+alias androidlargeemulator='emulator -avd LARGE_SCREEN > /dev/null 2>&1 &'
+alias androidsmallemulator='emulator -avd SMALL_SCREEN > /dev/null 2>&1 &'
 
 # Java.
 export PATH="$HOME/.jenv/bin:$PATH"
