@@ -166,6 +166,6 @@ setopt rm_star_silent
 enable_echo_colors() {
     autoload colors;
     colors;
-    # You can now use: echo "$fg_bold[red]"'hello world'"$fg[default]"
+    # You can now use: echo "$fg_bold[red]"'hello world'"$fg_no_bold[default]"
     # or: echo "$fg[yellow]"'hello world'"$fg[default]"
 }
