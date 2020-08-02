@@ -22,7 +22,7 @@ brew upgrade
 brew cleanup
 print_msg 'Finished brew'
 
-dirs=("/Users/amy/.npm/_logs" "/Users/amy/.npm/_cacache" "/Users/amy/Library/Caches/Yarn" "/Users/amy/.gradle/daemon" "/Users/amy/.gradle/caches" "/Users/amy/.m2/repository")
+dirs=("/Users/amy/.npm/_logs" "/Users/amy/.npm/_cacache" "/Users/amy/Library/Caches/Yarn" "/Users/amy/.gradle/daemon" "/Users/amy/.gradle/caches" "/Users/amy/.m2/repository" "/Users/amy/Library/Caches/Homebrew")
 mkdir -p $dirs
 du -d0 -h $dirs
 rm -fr $dirs
