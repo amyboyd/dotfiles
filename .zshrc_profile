@@ -29,12 +29,14 @@ export JAVA_HOME_11='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Conte
 export JAVA_HOME_12='/Library/Java/JavaVirtualMachines/adoptopenjdk-12.jdk/Contents/Home'
 export JAVA_HOME_13='/Library/Java/JavaVirtualMachines/adoptopenjdk-13-openj9.jdk/Contents/Home'
 export JAVA_HOME_14='/Library/Java/JavaVirtualMachines/openjdk-14.jdk/Contents/Home'
-export JAVA_HOME="$JAVA_HOME_14"
+export JAVA_HOME_15='/Library/Java/JavaVirtualMachines/adoptopenjdk-15.jdk/Contents/Home'
+export JAVA_HOME="$JAVA_HOME_15"
 alias usejdk8='export JAVA_HOME="$JAVA_HOME_8"; jenv shell 1.8; jenv global 1.8;'
 alias usejdk11='export JAVA_HOME="$JAVA_HOME_11"; jenv shell 11; jenv global 11;'
 alias usejdk12='export JAVA_HOME="$JAVA_HOME_12"; jenv shell 12; jenv global 12;'
 alias usejdk13='export JAVA_HOME="$JAVA_HOME_13"; jenv shell 13; jenv global 13;'
 alias usejdk14='export JAVA_HOME="$JAVA_HOME_14"; jenv shell 14; jenv global 14;'
+alias usejdk15='export JAVA_HOME="$JAVA_HOME_15"; jenv shell 15; jenv global 15;'
 
 # Usage: psg [PROCESS STRING]
 psg() {
